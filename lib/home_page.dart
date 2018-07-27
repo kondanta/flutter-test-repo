@@ -10,13 +10,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List lst;
   var _isLoading = false;
+  var ids;
+  // fetching data
   _fetchData() async {
-    final url = "https://jsonplaceholder.typicode.com/posts";
     this.setState(() => _isLoading = true);
-    await http.get(url).then((val) => this.setState(() {
-          _isLoading = false;
-          lst = json.decode(val.body);
-        }));
+    final url = "https://jsonplaceholder.typicode.com/posts";
+    final response = await http.get(url);
+    lst = json.decode(response.body);
+    lst.forEach((elem) => print(elem['id']));
+    this.setState(() => _isLoading = false);
   }
 
   @override
@@ -36,8 +38,13 @@ class _HomePageState extends State<HomePage> {
               ),
             ]),
         body: Center(
-          child:
-              _isLoading ? new CircularProgressIndicator() : new Text("Done"),
+          child: _isLoading
+              ? new CircularProgressIndicator()
+              : new ListView.builder(
+                  itemCount: this.lst == null ? 0 : this.lst.length,
+                  itemBuilder: (context, i) {
+                    return Text("Row $i");
+                  }),
         ));
   }
 }
