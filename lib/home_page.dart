@@ -14,10 +14,10 @@ class _HomePageState extends State<HomePage> {
   // fetching data
   _fetchData() async {
     this.setState(() => _isLoading = true);
-    final url = "https://jsonplaceholder.typicode.com/posts";
+    final url = "http://192.168.1.105:8080/search?source=mangadex&name=kanojo";
     final response = await http.get(url);
     lst = json.decode(response.body);
-    lst.forEach((elem) => print(elem['id']));
+    lst.forEach((elem) => print(elem['name']));
     this.setState(() => _isLoading = false);
   }
 
@@ -46,8 +46,16 @@ class _HomePageState extends State<HomePage> {
                     final post = this.lst[i];
                     return Column(
                       children: <Widget>[
-                        Text(post['title']),
-                        Divider(),
+                        new Container(
+                          padding: EdgeInsets.all(16.0),
+                          child: Column(
+                            children: <Widget>[
+                              Image.network(post['img']),
+                              Container(height: 6.0),
+                              Text(post['name']),
+                            ],
+                          ),
+                        )
                       ],
                     );
                   }),
