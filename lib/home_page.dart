@@ -44,7 +44,18 @@ class _HomePageState extends State<HomePage> {
                   itemCount: this.lst == null ? 0 : this.lst.length,
                   itemBuilder: (context, i) {
                     final post = this.lst[i];
-                    return MangaCell(manga: post);
+                    return FlatButton(
+                      padding: EdgeInsets.all(0.0),
+                      child: MangaCell(manga: post),
+                      onPressed: () {
+                        print("Pressed ${post['name']}");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    DetailsPage(manga: post)));
+                      },
+                    );
                   }),
         ));
   }
@@ -68,6 +79,30 @@ class MangaCell extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class DetailsPage extends StatelessWidget {
+  final manga;
+  DetailsPage({this.manga});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Details"),
+      ),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            Image.network(manga['img']),
+            Container(height: 6.0),
+            Text(manga['name']),
+            Container(height: 2.0),
+            Text(manga['url']),
+          ],
+        ),
+      ),
     );
   }
 }
