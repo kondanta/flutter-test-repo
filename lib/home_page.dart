@@ -44,21 +44,30 @@ class _HomePageState extends State<HomePage> {
                   itemCount: this.lst == null ? 0 : this.lst.length,
                   itemBuilder: (context, i) {
                     final post = this.lst[i];
-                    return Column(
-                      children: <Widget>[
-                        new Container(
-                          padding: EdgeInsets.all(16.0),
-                          child: Column(
-                            children: <Widget>[
-                              Image.network(post['img']),
-                              Container(height: 6.0),
-                              Text(post['name']),
-                            ],
-                          ),
-                        )
-                      ],
-                    );
+                    return MangaCell(manga: post);
                   }),
         ));
+  }
+}
+
+class MangaCell extends StatelessWidget {
+  final manga;
+  MangaCell({this.manga});
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        new Container(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            children: <Widget>[
+              Image.network(manga['img']),
+              Container(height: 6.0),
+              Text(manga['name']),
+            ],
+          ),
+        )
+      ],
+    );
   }
 }
