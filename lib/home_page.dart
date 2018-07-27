@@ -10,10 +10,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List lst;
   var _isLoading = false;
-  var ids;
   // fetching data
   _fetchData() async {
-    this.setState(() => _isLoading = true);
     final url = "http://192.168.1.105:8080/search?source=mangadex&name=kanojo";
     final response = await http.get(url);
     lst = json.decode(response.body);
@@ -46,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                     final post = this.lst[i];
                     return FlatButton(
                       padding: EdgeInsets.all(0.0),
-                      child: MangaCell(manga: post),
+                      child: MangaRow(manga: post),
                       onPressed: () {
                         print("Pressed ${post['name']}");
                         Navigator.push(
@@ -58,15 +56,6 @@ class _HomePageState extends State<HomePage> {
                     );
                   }),
         ));
-  }
-}
-
-class MangaCell extends StatelessWidget {
-  final manga;
-  MangaCell({this.manga});
-  @override
-  Widget build(BuildContext context) {
-    return MangaRow(manga: manga);
   }
 }
 
