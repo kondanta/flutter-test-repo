@@ -1,0 +1,4 @@
+#Fri Jul 27 10:24:42 EET 2018
+base.0=/home/kondanta/playground/flutter/learner_app/build/app/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
