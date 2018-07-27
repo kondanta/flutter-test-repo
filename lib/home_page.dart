@@ -66,20 +66,7 @@ class MangaCell extends StatelessWidget {
   MangaCell({this.manga});
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        new Container(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            children: <Widget>[
-              Image.network(manga['img']),
-              Container(height: 6.0),
-              Text(manga['name']),
-            ],
-          ),
-        )
-      ],
-    );
+    return MangaRow(manga: manga);
   }
 }
 
@@ -104,5 +91,78 @@ class DetailsPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class MangaRow extends StatelessWidget {
+  final manga;
+  MangaRow({this.manga});
+
+  @override
+  Widget build(BuildContext context) {
+    // Manga thumbnail variable
+    final mangaThumbnail = new Container(
+        margin: EdgeInsets.symmetric(vertical: 0.0),
+        alignment: FractionalOffset.topLeft,
+        child: Image.network(manga['img'], height: 100.0, width: 120.0));
+
+    // Manga Card Details
+    final mangaDetails = new Container(
+      margin: new EdgeInsets.fromLTRB(76.0, 16.0, 16.0, 16.0),
+      constraints: new BoxConstraints.expand(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          new Container(height: 8.0),
+          new Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              new Text(
+                manga['name'],
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600), //textstyle
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+            ],
+          ), //text
+        ], //widget[]
+      ), //column
+    );
+
+    // Manga card variable
+    final mangaCard = new Container(
+      child: mangaDetails,
+      height: 100.0,
+      margin: EdgeInsets.only(left: 46.0),
+      decoration: BoxDecoration(
+        color: Color(0xFF333366),
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(8.0),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 10.0,
+            offset: Offset(0.0, 10.0),
+          ),
+        ],
+      ), //box decoration
+    );
+
+    // Renderer
+    return Container(
+      margin: const EdgeInsets.symmetric(
+        vertical: 16.0,
+        horizontal: 24.0,
+      ), //EdgeInsets,
+      child: Stack(
+        children: <Widget>[
+          mangaCard,
+          mangaThumbnail,
+        ], //Widget[]
+      ), //Stack
+    ); //container;
   }
 }
