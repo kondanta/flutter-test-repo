@@ -43,7 +43,13 @@ class _HomePageState extends State<HomePage> {
               : new ListView.builder(
                   itemCount: this.lst == null ? 0 : this.lst.length,
                   itemBuilder: (context, i) {
-                    return Text("Row $i");
+                    final post = this.lst[i];
+                    return Column(
+                      children: <Widget>[
+                        Text(post['title']),
+                        Divider(),
+                      ],
+                    );
                   }),
         ));
   }

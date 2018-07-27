@@ -1,4 +1,5 @@
 .idea/
 .metadata
 .packages
-build/
+build
+build/*
