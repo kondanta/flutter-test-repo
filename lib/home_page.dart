@@ -85,6 +85,7 @@ List<Card> _buildGridCards(BuildContext context, List products) {
 
   return products.map((product) {
     return Card(
+      color: Colors.orange,
       // TODO: Adjust card heights (103)
       child: InkResponse(
           enableFeedback: true,
@@ -111,7 +112,7 @@ List<Card> _buildGridCards(BuildContext context, List products) {
                         product['name'],
                         // style: theme.textTheme.title,
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
+                        maxLines: 3,
                       ),
                     ],
                   ),
