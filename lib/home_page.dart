@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+            brightness: Brightness.dark,
             centerTitle: true,
             title: Text("Demo App"),
             actions: <Widget>[
@@ -85,6 +86,7 @@ List<Card> _buildGridCards(BuildContext context, List products) {
 
   return products.map((product) {
     return Card(
+      elevation: 0.0,
       color: Colors.orange,
       // TODO: Adjust card heights (103)
       child: InkResponse(
