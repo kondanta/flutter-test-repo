@@ -86,37 +86,46 @@ List<Card> _buildGridCards(BuildContext context, List products) {
   return products.map((product) {
     return Card(
       // TODO: Adjust card heights (103)
-      child: Column(
-        // TODO: Center items on the card (103)
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          AspectRatio(
-            aspectRatio: 5.5 / 9,
-            child: Image.network(
-              product['img'],
-              fit: BoxFit.fill,
-              // TODO: Adjust the box size (102)
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-              child: Column(
-                // TODO: Align labels to the bottom and center (103)
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    product['name'],
-                    // style: theme.textTheme.title,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                  ),
-                ],
+      child: InkResponse(
+          enableFeedback: true,
+          child: Column(
+            // TODO: Center items on the card (103)
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              AspectRatio(
+                aspectRatio: 5.5 / 9,
+                child: Image.network(
+                  product['img'],
+                  fit: BoxFit.fill,
+                  // TODO: Adjust the box size (102)
+                ),
               ),
-            ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                  child: Column(
+                    // TODO: Align labels to the bottom and center (103)
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        product['name'],
+                        // style: theme.textTheme.title,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+          onTap: () {
+            print("Pressed ${product['name']}");
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DetailsPage(manga: product)));
+          }),
     );
   }).toList();
 }
