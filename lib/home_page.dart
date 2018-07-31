@@ -43,23 +43,12 @@ class _HomePageState extends State<HomePage> {
         body: Center(
           child: _isLoading
               ? new CircularProgressIndicator()
-              : new ListView.builder(
-                  itemCount: this.lst == null ? 0 : this.lst.length,
-                  itemBuilder: (context, i) {
-                    final post = this.lst[i];
-                    return FlatButton(
-                      padding: EdgeInsets.all(0.0),
-                      child: MangaRow(manga: post),
-                      onPressed: () {
-                        print("Pressed ${post['name']}");
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    DetailsPage(manga: post)));
-                      },
-                    );
-                  }),
+              : GridView.count(
+                  crossAxisCount: 2,
+                  padding: EdgeInsets.all(16.0),
+                  childAspectRatio: 8.0 / 9.0,
+                  children: _buildGridCards(context, lst) // Changed code
+                  ),
         ));
   }
 }
@@ -159,4 +148,47 @@ class MangaRow extends StatelessWidget {
       ), //Stack
     ); //container;
   }
+}
+
+List<Card> _buildGridCards(BuildContext context, List products) {
+  if (products == null || products.isEmpty) {
+    return const <Card>[];
+  }
+
+  return products.map((product) {
+    return Card(
+      // TODO: Adjust card heights (103)
+      child: Column(
+        // TODO: Center items on the card (103)
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          AspectRatio(
+            aspectRatio: 18 / 11,
+            child: Image.network(
+              product['img'],
+              // TODO: Adjust the box size (102)
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+              child: Column(
+                // TODO: Align labels to the bottom and center (103)
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  // TODO: Handle overflowing labels (103)
+                  Text(
+                    product['name'],
+                    // style: theme.textTheme.title,
+                    maxLines: 1,
+                  ),
+                  SizedBox(height: 8.0),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }).toList();
 }
