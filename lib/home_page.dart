@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
               : GridView.count(
                   crossAxisCount: 3,
                   padding: EdgeInsets.all(16.0),
-                  childAspectRatio: 5.0 / 9.0,
+                  childAspectRatio: 4.0 / 9.0,
                   shrinkWrap: true,
                   children: _buildGridCards(context, lst) // Changed code
                   ),
@@ -91,7 +91,7 @@ List<Card> _buildGridCards(BuildContext context, List products) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           AspectRatio(
-            aspectRatio: 7 / 9,
+            aspectRatio: 5.5 / 9,
             child: Image.network(
               product['img'],
               fit: BoxFit.fill,
@@ -105,7 +105,6 @@ List<Card> _buildGridCards(BuildContext context, List products) {
                 // TODO: Align labels to the bottom and center (103)
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  // TODO: Handle overflowing labels (103)
                   Text(
                     product['name'],
                     // style: theme.textTheme.title,
