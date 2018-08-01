@@ -125,16 +125,24 @@ class DetailsInfo extends StatelessWidget {
           top: 16.0,
           left: 16.0,
           right: 16.0,
-          child: Row(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Image.network(
-                manga[0]['img'],
-                height: 140.0,
+              Row(children: [
+                Image.network(
+                  manga[0]['img'],
+                  height: 140.0,
+                ),
+                SizedBox(width: 16.0),
+                Expanded(child: movieInformation),
+              ]),
+              SizedBox(height: 32.0),
+              Text("Genres"),
+              Wrap(
+                direction: Axis.horizontal,
+                children: _buildCategoryChips(genres, textTheme),
               ),
-              SizedBox(width: 16.0),
-              Expanded(child: movieInformation),
             ],
           ),
         ),
