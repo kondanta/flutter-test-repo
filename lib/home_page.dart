@@ -90,45 +90,74 @@ List<Card> _buildGridCards(BuildContext context, List products) {
       color: Colors.orange,
       // TODO: Adjust card heights (103)
       child: InkResponse(
-          enableFeedback: true,
-          child: Column(
-            // TODO: Center items on the card (103)
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              AspectRatio(
-                aspectRatio: 5.5 / 9,
-                child: Image.network(
-                  product['img'],
-                  fit: BoxFit.fill,
-                  // TODO: Adjust the box size (102)
+        enableFeedback: true,
+        child: Column(
+          // TODO: Center items on the card (103)
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            AspectRatio(
+              aspectRatio: 5.5 / 9,
+              child: Image.network(
+                product['img'],
+                fit: BoxFit.fill,
+                // TODO: Adjust the box size (102)
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                child: Column(
+                  // TODO: Align labels to the bottom and center (103)
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      product['name'],
+                      // style: theme.textTheme.title,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                    ),
+                  ],
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                  child: Column(
-                    // TODO: Align labels to the bottom and center (103)
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        product['name'],
-                        // style: theme.textTheme.title,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 3,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          onTap: () {
-            print("Pressed ${product['name']}");
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => DetailsPage(manga: product)));
-          }),
+            ),
+          ],
+        ),
+        onTap: () {
+          print("Pressed ${product['name']}");
+          transition(context, product);
+        },
+      ),
     );
   }).toList();
+}
+
+void transition(BuildContext context, Map<dynamic, dynamic> url) {
+  Navigator.of(context).push(new FadeRoute(new DetailsPage(manga: url)));
+}
+
+class FadeRoute extends PageRoute {
+  final Widget child;
+
+  FadeRoute(this.child);
+
+  @override
+  Color get barrierColor => null;
+
+  @override
+  String get barrierLabel => null;
+
+  @override
+  Widget buildPage(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation) {
+    return new FadeTransition(
+      opacity: animation,
+      child: child,
+    );
+  }
+
+  @override
+  bool get maintainState => true;
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 300);
 }
