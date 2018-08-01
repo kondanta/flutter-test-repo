@@ -54,7 +54,7 @@ class _DetailsPageState extends State<DetailsPage>
           : TabBarView(
               controller: _tabController,
               children: <Widget>[
-                DetailsInfo(detailsList),
+                Deneme(detailsList),
                 DetailsChapter(),
               ],
             ),
@@ -66,22 +66,7 @@ class DetailsInfo extends StatelessWidget {
   DetailsInfo(this.manga);
   final manga;
 
-  List<Widget> _buildCategoryChips(List genres, TextTheme textTheme) {
-    return genres.map((genre) {
-      return Padding(
-        padding: const EdgeInsets.only(right: 8.0),
-        child: Chip(
-          label: Text(genre),
-          labelStyle: textTheme.caption,
-          backgroundColor: Colors.black12,
-        ),
-      );
-    }).toList();
-  }
-
   Widget build(BuildContext context) {
-    final genres = manga[0]['genres'].split(' ');
-    //    final chapters = manga[0]['chaptersLinks']
     var textTheme = Theme.of(context).textTheme;
 
     var movieInformation = Column(
@@ -123,48 +108,96 @@ class DetailsInfo extends StatelessWidget {
           top: 16.0,
           left: 16.0,
           right: 16.0,
-          bottom: 32.0,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Row(children: [
-                Image.network(
-                  manga[0]['img'],
-                  height: 140.0,
-                ),
-                SizedBox(width: 16.0),
-                Expanded(child: movieInformation),
-              ]),
-              SizedBox(height: 24.0),
-              Text(
-                "Genres",
-                style: textTheme.subhead,
+              Image.network(
+                manga[0]['img'],
+                height: 160.0,
               ),
-              Wrap(
-                spacing: 0.0,
-                runSpacing: 0.0,
-                direction: Axis.horizontal,
-                children: _buildCategoryChips(genres, textTheme),
-              ),
-              SizedBox(height: 12.0),
-              Text(
-                "Description",
-                style: textTheme.subhead,
-              ),
-              SizedBox(height: 14.0),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Text(
-                    manga[0]['description'],
-                    style: textTheme.caption,
-                  ),
-                ),
-              ),
+              SizedBox(width: 16.0),
+              Expanded(child: movieInformation),
             ],
           ),
         ),
       ],
+    );
+  }
+}
+
+class GenreGenerator extends StatelessWidget {
+  GenreGenerator(this.manga);
+  final manga;
+
+  List<Widget> _buildCategoryChips(List genres, TextTheme textTheme) {
+    return genres.map((genre) {
+      return Padding(
+        padding: const EdgeInsets.only(right: 8.0),
+        child: Chip(
+          label: Text(genre),
+          labelStyle: textTheme.caption,
+          backgroundColor: Colors.black12,
+        ),
+      );
+    }).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final genres = manga[0]['genres'].split(' ');
+    var textTheme = Theme.of(context).textTheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text("Genre"),
+        Wrap(
+          direction: Axis.horizontal,
+          children: _buildCategoryChips(genres, textTheme),
+        ),
+      ],
+    );
+  }
+}
+
+class DescriptionGenerator extends StatelessWidget {
+  DescriptionGenerator(this.manga);
+  final manga;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Description"),
+        SizedBox(height: 8.0),
+        Text(manga[0]['description']),
+      ],
+    );
+  }
+}
+
+class Deneme extends StatelessWidget {
+  Deneme(this.manga);
+  final manga;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 200.0, child: DetailsInfo(manga)),
+            SizedBox(height: 8.0),
+            GenreGenerator(manga),
+            SizedBox(height: 8.0),
+            DescriptionGenerator(manga),
+            SizedBox(height: 50.0),
+          ],
+        ),
+      ),
     );
   }
 }
