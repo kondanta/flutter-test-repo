@@ -138,7 +138,10 @@ class DetailsInfo extends StatelessWidget {
                 Expanded(child: movieInformation),
               ]),
               SizedBox(height: 32.0),
-              Text("Genres"),
+              Text(
+                "Genres",
+                style: textTheme.subhead,
+              ),
               Wrap(
                 direction: Axis.horizontal,
                 children: _buildCategoryChips(genres, textTheme),
