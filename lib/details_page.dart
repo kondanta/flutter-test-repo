@@ -8,11 +8,13 @@ class DetailsPage extends StatefulWidget {
   _DetailsPageState createState() => new _DetailsPageState(manga);
 }
 
-class _DetailsPageState extends State<DetailsPage> {
+class _DetailsPageState extends State<DetailsPage>
+    with SingleTickerProviderStateMixin {
   _DetailsPageState(this.manga);
   final manga;
   List detailsList;
   var _isLoading = true;
+  TabController _tabController;
 
   // fetching data
   _fetchDetails() async {
@@ -29,6 +31,7 @@ class _DetailsPageState extends State<DetailsPage> {
   void initState() {
     super.initState();
     _fetchDetails();
+    _tabController = new TabController(vsync: this, initialIndex: 0, length: 2);
   }
 
   @override
@@ -36,23 +39,17 @@ class _DetailsPageState extends State<DetailsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Details"),
+        elevation: 0.7,
+        bottom: TabBar(
+          controller: _tabController,
+          indicatorColor: Colors.orange,
+          tabs: <Widget>[
+            Tab(text: 'Info'),
+            Tab(text: 'Chapters'),
+          ],
+        ),
       ),
-      body: _isLoading
-          ? CircularProgressIndicator()
-          : Center(
-              child: Column(
-                children: <Widget>[
-                  AspectRatio(
-                    aspectRatio: 1 / 1,
-                    child: Image.network(
-                      detailsList[0]['img'],
-                      fit: BoxFit.fill,
-                      // TODO: Adjust the box size (102)
-                    ),
-                  ),
-                ],
-              ),
-            ),
+      body: _isLoading ? CircularProgressIndicator() : Container(),
     );
   }
 }
