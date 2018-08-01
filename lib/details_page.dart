@@ -49,7 +49,27 @@ class _DetailsPageState extends State<DetailsPage>
           ],
         ),
       ),
-      body: _isLoading ? CircularProgressIndicator() : Container(),
+      body: _isLoading
+          ? CircularProgressIndicator()
+          : TabBarView(
+              controller: _tabController,
+              children: <Widget>[
+                DetailsInfo(),
+                DetailsChapter(),
+              ],
+            ),
     );
+  }
+}
+
+class DetailsInfo extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class DetailsChapter extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
