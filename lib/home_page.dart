@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:learner_app/details_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -52,30 +53,6 @@ class _HomePageState extends State<HomePage> {
                   children: _buildGridCards(context, lst) // Changed code
                   ),
         ));
-  }
-}
-
-class DetailsPage extends StatelessWidget {
-  final manga;
-  DetailsPage({this.manga});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Details"),
-      ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            Image.network(manga['img']),
-            Container(height: 6.0),
-            Text(manga['name']),
-            Container(height: 2.0),
-            Text(manga['url']),
-          ],
-        ),
-      ),
-    );
   }
 }
 
@@ -132,7 +109,7 @@ List<Card> _buildGridCards(BuildContext context, List products) {
 }
 
 void transition(BuildContext context, Map<dynamic, dynamic> url) {
-  Navigator.of(context).push(new FadeRoute(new DetailsPage(manga: url)));
+  Navigator.of(context).push(new FadeRoute(new DetailsPage(url)));
 }
 
 class FadeRoute extends PageRoute {
