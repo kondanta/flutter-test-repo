@@ -113,8 +113,6 @@ class DetailsInfo extends StatelessWidget {
           manga[0]['chapterLinks'].length.toString() + ' chapters',
           style: textTheme.caption,
         )
-        //SizedBox(height: 12.0),
-        //        Row(children: _buildCategoryChips(genres, textTheme)),
       ],
     );
 
@@ -125,6 +123,7 @@ class DetailsInfo extends StatelessWidget {
           top: 16.0,
           left: 16.0,
           right: 16.0,
+          bottom: 32.0,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -137,14 +136,30 @@ class DetailsInfo extends StatelessWidget {
                 SizedBox(width: 16.0),
                 Expanded(child: movieInformation),
               ]),
-              SizedBox(height: 32.0),
+              SizedBox(height: 24.0),
               Text(
                 "Genres",
                 style: textTheme.subhead,
               ),
               Wrap(
+                spacing: 0.0,
+                runSpacing: 0.0,
                 direction: Axis.horizontal,
                 children: _buildCategoryChips(genres, textTheme),
+              ),
+              SizedBox(height: 12.0),
+              Text(
+                "Description",
+                style: textTheme.subhead,
+              ),
+              SizedBox(height: 14.0),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Text(
+                    manga[0]['description'],
+                    style: textTheme.caption,
+                  ),
+                ),
               ),
             ],
           ),

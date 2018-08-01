@@ -13,7 +13,7 @@ class _HomePageState extends State<HomePage> {
   var _isLoading = false;
   // fetching data
   _fetchData() async {
-    final url = "http://192.168.1.105:8080/search?source=mangadex&name=kanojo";
+    final url = "http://192.168.1.105:8080/search?source=mangadex&name=ajin";
     final response = await http.get(url);
     lst = json.decode(response.body);
     lst.forEach((elem) => print(elem['name']));
