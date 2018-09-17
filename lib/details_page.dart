@@ -55,7 +55,7 @@ class _DetailsPageState extends State<DetailsPage>
               controller: _tabController,
               children: <Widget>[
                 Deneme(detailsList),
-                DetailsChapter(),
+                DetailsChapter(detailsList),
               ],
             ),
     );
@@ -203,7 +203,20 @@ class Deneme extends StatelessWidget {
 }
 
 class DetailsChapter extends StatelessWidget {
+  DetailsChapter(this.manga);
+  final manga;
   Widget build(BuildContext context) {
-    return Container();
+    final chapters = manga[0]['chapterLinks'];
+    print(chapters);
+    return ListView.builder(
+        itemCount: chapters == null ? 0 : chapters.length,
+        itemBuilder: (context, i) {
+          return Column(
+            children: [
+              Text(chapters[i]['chapterName']),
+              SizedBox(height: 8.0),
+            ],
+          );
+        });
   }
 }
